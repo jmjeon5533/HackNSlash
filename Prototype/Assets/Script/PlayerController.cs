@@ -6,18 +6,20 @@ public class PlayerController : MonoBehaviour
 {
     public float MoveSpeed;
     public float gravityScale;
-    Animator anim;
+    [SerializeField] Animator anim;
     CharacterController cc;
 
     private float yVelocity;
+    [SerializeField] float RotateSpeed;
+    bool isAttack; //°ø°ÝÁß
     void Start()
     {
-        //anim = transform.GetChild(0).GetComponent<Animator>();
         cc = GetComponent<CharacterController>();
     }
     void Update()
     {
-        Movement();
+        if (isAttack) Movement();
+        Attack();
     }
     void Movement()
     {
@@ -28,8 +30,35 @@ public class PlayerController : MonoBehaviour
         if (!cc.isGrounded) yVelocity -= 9.8f * gravityScale * Time.deltaTime;
         else yVelocity = 0;
 
+        if (Vector3.Magnitude(velocity) > 1)
+        {
+            anim.SetInteger("Move", 1);
+            var y = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
+            anim.gameObject.transform.rotation =
+                Quaternion.RotateTowards(anim.gameObject.transform.rotation,
+                Quaternion.Euler(new Vector3(0, y, 0)), RotateSpeed * 10 * Time.deltaTime);
+        }
+        else
+        {
+            anim.SetInteger("Move", 0);
+        }
         velocity.y = yVelocity;
 
         cc.Move(velocity * Time.deltaTime);
+    }
+    void Attack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!isAttack)
+            {
+                isAttack = true;
+
+            }
+        }
+    }
+    public void EndAttack()
+    {
+        isAttack = false;
     }
 }
