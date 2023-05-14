@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        if (isAttack) Movement();
+        if (!isAttack) Movement();
         Attack();
     }
     void Movement()
@@ -53,12 +53,14 @@ public class PlayerController : MonoBehaviour
             if (!isAttack)
             {
                 isAttack = true;
-
+                StartCoroutine(EndAttack());
             }
         }
     }
-    public void EndAttack()
+    IEnumerator EndAttack()
     {
+        yield return new WaitForSeconds(1.267f);
         isAttack = false;
+        anim.SetBool("Attack", isAttack);
     }
 }
