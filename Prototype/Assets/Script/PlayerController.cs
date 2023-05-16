@@ -11,14 +11,15 @@ public class PlayerController : MonoBehaviour
 
     private float yVelocity;
     [SerializeField] float RotateSpeed;
-    bool isAttack; //공격중
+
+    public WeaponBase WeaponScript;
     void Start()
     {
         cc = GetComponent<CharacterController>();
     }
     void Update()
     {
-        if (!isAttack) Movement();
+        if (!WeaponScript.isAttack) Movement();
         Attack();
     }
     void Movement()
@@ -32,15 +33,15 @@ public class PlayerController : MonoBehaviour
 
         if (Vector3.Magnitude(velocity) > 1)
         {
-            anim.SetInteger("Move", 1);
+            anim.SetBool("IsWalk",true);
             var y = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
-            anim.gameObject.transform.rotation =
-                Quaternion.RotateTowards(anim.gameObject.transform.rotation,
+            transform.rotation =
+                Quaternion.RotateTowards(transform.rotation,
                 Quaternion.Euler(new Vector3(0, y, 0)), RotateSpeed * 10 * Time.deltaTime);
         }
         else
         {
-            anim.SetInteger("Move", 0);
+            anim.SetBool("IsWalk", false);
         }
         velocity.y = yVelocity;
 
@@ -50,17 +51,24 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (!isAttack)
+            if (!WeaponScript.isAttack)
             {
-                isAttack = true;
-                StartCoroutine(EndAttack());
+                anim.SetTrigger("Attack");
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    // 마우스 클릭 위치에서 맞은 지점까지의 방향 벡터를 구합니다.
+                    Vector3 direction = hit.point - transform.position;
+                    direction.y = 0; // 방향 벡터의 y 성분을 0으로 만듭니다.
+
+                    // 방향 벡터를 기준으로 캐릭터를 회전시킵니다.
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    transform.rotation = targetRotation;
+                }
+                WeaponScript.Use();
             }
         }
-    }
-    IEnumerator EndAttack()
-    {
-        yield return new WaitForSeconds(1.267f);
-        isAttack = false;
-        anim.SetBool("Attack", isAttack);
     }
 }
