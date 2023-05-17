@@ -74,4 +74,8 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    public void Damaged()
+    {
+        anim.SetTrigger("Damaged");
+    }
 }
