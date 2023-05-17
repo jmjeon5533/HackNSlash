@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private float Hp;
+    public float MaxHp;
     public float MoveSpeed;
     public float gravityScale;
     [SerializeField] Animator anim;
@@ -16,6 +18,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        Hp = MaxHp;
     }
     void Update()
     {

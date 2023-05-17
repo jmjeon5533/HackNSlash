@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: bc39e28989acb1549a9b2bacc36af276, type: 2}
 --- !u!1 &4706068
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +280,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &185142316
 MeshCollider:
@@ -445,6 +445,41 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!1 &599045241 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5022188568556972432, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+  m_PrefabInstance: {fileID: 955859174}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &599045246
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599045241}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
+--- !u!136 &599045247
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599045241}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,7 +591,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &731518456
 MeshCollider:
@@ -637,6 +672,71 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &955859174
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.1107106
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.3399887
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.38007936
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9249539
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 224.677
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5022000018127709848, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: attackRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5022188568556972432, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: m_Name
+      value: Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 5022188568556972432, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,7 +853,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &1270339769
 MeshCollider:
@@ -895,7 +995,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &1791043700
 MeshCollider:

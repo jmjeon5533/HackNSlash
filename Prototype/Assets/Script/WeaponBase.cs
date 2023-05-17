@@ -30,4 +30,11 @@ public class WeaponBase : MonoBehaviour
         Trail.enabled = false;
         isAttack = false;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            other.GetComponent<IEnemyBase>().Damaged(damage);
+        }
+    }
 }
