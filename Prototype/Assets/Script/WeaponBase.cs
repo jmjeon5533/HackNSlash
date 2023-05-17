@@ -9,6 +9,7 @@ public class WeaponBase : MonoBehaviour
     private BoxCollider meleeArea;
     [SerializeField] private TrailRenderer Trail;
     public bool isAttack;
+    public bool hit = false;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class WeaponBase : MonoBehaviour
     public void Use()
     {
         isAttack = true;
+        hit = false;
         StartCoroutine("Swing");
     }
     IEnumerator Swing()
@@ -32,9 +34,10 @@ public class WeaponBase : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && !hit && meleeArea.enabled)
         {
             other.GetComponent<IEnemyBase>().Damaged(damage);
+            hit = true;
         }
     }
 }

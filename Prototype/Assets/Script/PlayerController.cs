@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float MoveSpeed;
     public float gravityScale;
     [SerializeField] Animator anim;
+    [SerializeField] ParticleSystem hitFx;
     CharacterController cc;
 
     private float yVelocity;
@@ -74,8 +75,14 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    public void Damaged()
+    public void Damaged(float value)
     {
         anim.SetTrigger("Damaged");
+
+        Instantiate(hitFx, transform.position, Quaternion.identity);
+        if(Hp < 0)
+        {
+            Hp = 0;
+        }
     }
 }

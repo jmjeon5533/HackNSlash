@@ -10,10 +10,18 @@ public class Slime : EnemyBase
 
     float updatePathTime = 0.2f;
     float curPathTime = 0;
+
     float updateCatchTime = 3f;
     float curCatchTime = 0;
-    float updateAttackTime = 1.5f;
+
+    float updateAttackTime = 0.84f;
     float curAttackTime = 0;
+
+    BoxCollider damageCast;
+
+    bool hit = false;
+
+    [SerializeField] ParticleSystem hitFx;
 
     [SerializeField] List<AnimationClip> attackClip = new List<AnimationClip>();
 
@@ -32,7 +40,9 @@ public class Slime : EnemyBase
         if (curAttackTime > updateAttackTime)
         {
             curAttackTime = 0;
-            animator.SetInteger("Attack", Random.Range(1, 3));
+            animator.SetInteger("Attack", Random.Range(1, 2));
+            hit = false;
+            StartCoroutine(AttackAnim());
         }
     }
 
@@ -40,6 +50,7 @@ public class Slime : EnemyBase
     {
         if (enemyState == EnemyState.Dead) return;
         hp -= value;
+        Instantiate(hitFx, transform.position, Quaternion.identity);
         ChangeState(EnemyState.Damaged);
         if (hp < 0)
         {
@@ -52,6 +63,17 @@ public class Slime : EnemyBase
             StartCoroutine("DamageAnim");
         }
     }
+
+    IEnumerator AttackAnim()
+    {
+        print("Attack!");
+        yield return new WaitForSeconds(0.2f);
+        damageCast.enabled = true;
+        yield return new WaitForSeconds(0.4f);
+        damageCast.enabled = false;
+        print("EndAttack");
+    }
+
     IEnumerator DamageAnim()
     {
         print("Damaged!");
@@ -128,6 +150,9 @@ public class Slime : EnemyBase
         base.Initilize();
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        damageCast = GetComponent<BoxCollider>();
+
+        
     }
 
     void CheckAttackRange()
@@ -167,6 +192,17 @@ public class Slime : EnemyBase
         {
             curPathTime = 0;
             agent.SetDestination(target.position);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player") && !hit && damageCast.enabled)
+        {
+            other.GetComponent<PlayerController>().Damaged(atkDamage);
+            Debug.Log("Hit");   
+            hit = true; 
+
         }
     }
 

@@ -480,6 +480,19 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.75, z: 0}
+--- !u!65 &599045252
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599045241}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1.07, y: 1.03, z: 0.95}
+  m_Center: {x: 0, y: 0.57, z: 0.76}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +640,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1d763f9faa96e83409a11c20313ace92, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -685,7 +698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.1107106
+      value: 5.962
       objectReference: {fileID: 0}
     - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
       propertyPath: m_LocalPosition.y
@@ -693,7 +706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.3399887
+      value: 5.189
       objectReference: {fileID: 0}
     - target: {fileID: 5017256948675037116, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
       propertyPath: m_LocalRotation.w
@@ -723,6 +736,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5022000018127709848, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
+      propertyPath: hitFx
+      value: 
+      objectReference: {fileID: 2937288300702461543, guid: 9bc2d63ad6aa2a84298546893c761689, type: 3}
     - target: {fileID: 5022000018127709848, guid: 59bab7c8e5f6032419362992a07786df, type: 3}
       propertyPath: attackRange
       value: 1
@@ -1805,9 +1822,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ded704846062f48a7cd7ca03e2891d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHp: 0
   MoveSpeed: 5
   gravityScale: 2
   anim: {fileID: 3403024553364397399}
+  hitFx: {fileID: 2937288300702461543, guid: d4ce9795925853447b3b5b9157cc26f2, type: 3}
   RotateSpeed: 50
   WeaponScript: {fileID: 9081279639838753242}
 --- !u!4 &6097322885397489488
@@ -2363,6 +2382,7 @@ MonoBehaviour:
   rate: 0.4
   Trail: {fileID: 4706070}
   isAttack: 0
+  hit: 0
 --- !u!4 &9172203659701631656
 Transform:
   m_ObjectHideFlags: 0
