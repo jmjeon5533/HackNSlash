@@ -10,15 +10,18 @@ public class BuildingSystem : MonoBehaviour
     public static BuildingSystem current;
 
     public GridLayout gridLayout;
+    public PlayerController player;
+
     private Grid grid;
     [SerializeField] private Tilemap MainTilemap;
     [SerializeField] private TileBase whiteTile;
-    [SerializeField] private PlayerController player;
     [SerializeField] RectTransform ConfigTab;
 
-    public GameObject prefab1, prefab2;
+    public List<GameObject> Prefabs = new List<GameObject>();
 
     private PlaceableObject objectToPlace;
+
+    private bool isSelecting = false;
 
     #region Unity methods
 
@@ -31,35 +34,10 @@ public class BuildingSystem : MonoBehaviour
     {
         ConfigTab.gameObject.SetActive(false);
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            InitializeWithObject(prefab1);
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            InitializeWithObject(prefab2);
-        }
-        if (!objectToPlace)
-        {
-            return;
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            EndSetting();
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            ExitSetting();
-        }
-    }
     public void EndSetting()
     {
         if (CanBePlaced(objectToPlace))
         {
-            objectToPlace.GetComponent<BoxCollider>().isTrigger = false;
             objectToPlace.Place();
             Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
             foreach (var m in objectToPlace.ChildMaterial)
@@ -73,12 +51,14 @@ public class BuildingSystem : MonoBehaviour
         }
         ConfigTab.gameObject.SetActive(false);
         ConfigTab.GetComponent<ConfigScript>().Target = null;
+        isSelecting = false;
     }
     public void ExitSetting()
     {
         Destroy(objectToPlace.gameObject);
         ConfigTab.gameObject.SetActive(false);
         ConfigTab.GetComponent<ConfigScript>().Target = null;
+        isSelecting = false;
     }
 
     #endregion
@@ -121,21 +101,25 @@ public class BuildingSystem : MonoBehaviour
     #endregion
 
     #region Building Placement
-    public void InitializeWithObject(GameObject prefab)
+    public void InitializeWithObject(int index)
     {
-        var playerPos = new Vector3(player.gameObject.transform.position.x, 0, player.gameObject.transform.position.z);
-        Vector3 position = SnapCoordinateToGrid(playerPos);
-
-        GameObject obj = Instantiate(prefab, position, Quaternion.identity);
-        objectToPlace = obj.GetComponent<PlaceableObject>();
-        obj.AddComponent<ObjectDrag>();
-        obj.GetComponent<BoxCollider>().isTrigger = true;
-        foreach (var m in obj.GetComponent<PlaceableObject>().ChildMaterial)
+        if (!isSelecting)
         {
-            m.GetComponent<MeshRenderer>().material = obj.GetComponent<PlaceableObject>().GridMaterial;
+            isSelecting = true;
+            var playerPos = new Vector3(player.gameObject.transform.position.x, 0, player.gameObject.transform.position.z);
+            Vector3 position = SnapCoordinateToGrid(playerPos + new Vector3(0,0,3f));
+
+            GameObject obj = Instantiate(Prefabs[index], position, Quaternion.identity);
+            objectToPlace = obj.GetComponent<PlaceableObject>();
+            obj.AddComponent<ObjectDrag>();
+            obj.GetComponent<BoxCollider>().isTrigger = true;
+            foreach (var m in obj.GetComponent<PlaceableObject>().ChildMaterial)
+            {
+                m.GetComponent<MeshRenderer>().material = obj.GetComponent<PlaceableObject>().GridMaterial;
+            }
+            ConfigTab.GetComponent<ConfigScript>().Target = obj.transform;
+            ConfigTab.gameObject.SetActive(true);
         }
-        ConfigTab.GetComponent<ConfigScript>().Target = obj.transform;
-        ConfigTab.gameObject.SetActive(true);
     }
 
     private bool CanBePlaced(PlaceableObject placeableObject)
